@@ -43,6 +43,16 @@ public:
 	}
 
 	~Set() { delete[] data_; }
+
+	Set& operator=(const Set& other) {
+		if (this != &other) {
+			delete[] data_;
+			size_ = other.size_;
+			data_ = new T[size_];
+			for (std::size_t i = 0; i < size_; ++i) { data_[i] = other.data_[i]; }
+		}
+		return *this;
+	}
 };
 
 #endif // !SET_H
