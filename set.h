@@ -11,6 +11,7 @@ private:
 	std::size_t size_;
 	static constexpr double EPSILON = 1e-6;
 
+	//1
 	bool is_equal(const T& a, const T& b) const {
 		if constexpr (std::is_floating_point_v<T>) {
 			return std::abs(a - b) < EPSILON;
@@ -20,6 +21,7 @@ private:
 		}
 	}
 
+	//2
 	bool contains_internal(const T& value) const {
 		for (std::size_t i = 0; i < size_; ++i) {
 			if (is_equal(data_[i]), value) { return true; }
@@ -28,12 +30,15 @@ private:
 	}
 
 public:
+	//1
 	Set() : data_(nullptr), size_(0) {}
 
+	//2
 	Set(const T* arr, std::size_t n) : data_(nullptr), size_(0) {
 		for (std::size_t i = 0; i < n; ++i) { add(arr[i]); }
 	}
 
+	//3
 	Set(const Set& other) : data_(nullptr), size_(0) {
 		if (other.size_ > 0) {
 			data_ = new T[other.size_];
@@ -42,8 +47,12 @@ public:
 		size_ = other.size_;
 	}
 
+	//4
 	~Set() { delete[] data_; }
 
+
+
+	//1
 	Set& operator=(const Set& other) {
 		if (this != &other) {
 			delete[] data_;
@@ -53,6 +62,100 @@ public:
 		}
 		return *this;
 	}
+
+	//2
+	const T& operator[](std::size_t idx) const {
+		if (idx >= size_) {
+			throw std::out_of_range("Index out of range..");
+		}
+		return data_[idx];
+	}
+
+	//3
+	void insert(const T& value) {
+		if (contains_internal(value)) return;
+		T* new_data = new T[size_ + 1];
+		for (std::size_t i = 0; i < size_; ++i) { new_data[i] = data[i]; }
+		new_data[size_] = value;
+		delete[] data_;
+		data_ = new_data;
+		++size_;
+	}
+
+	//4
+	void remove(const T& value) {
+		if (!contains_internal(value)) return;
+		T* new_data = new T[size_ - 1];
+		std::size_t idx = 0;
+		for (std::size_t i = 0; i < size_; ++i) {
+			if (!is_equal(data_[i], value)) { new_data[idx++] = data[i]; }
+		}
+		delete[] data_;
+		data_ = new_data;
+		--size_;
+	}
+
+	//5
+	bool contains(const T& value) const {
+		return contains_internal(value);
+	}
+
+	//6
+	std::size_t size() const { return size_; }
+
+	//7
+	Set operator+(const Set& other) const {
+		Set result = *this;
+		for (std::size_t i = 0; i < size_; ++i) { result.insert(other.data_[i]); }
+		return result;
+	}
+
+	//8
+	Set operator-(const Set& other) const {
+		Set result = *this;
+		for (std::size_t i = 0; i < size_; ++i) { result.remove(other.data_[i]); }
+		return result;
+	}
+
+	//9
+	Set& operator+=(const T& value) {
+		insert(value);
+		return *this;
+	}
+
+	//10
+	Set& operator-=(const T& value) {
+		remove(value);
+		return *this;
+	}
+
+	//11
+	bool operator==(const Set& other) const {
+		if (size_ != other.size_) return false;
+		for (std : ; size_t i = 0; i < size_; ++i) { if (!other.contains(data_[i])) return false; }
+		return true;
+	}
+
+	//12
+	Set intersection(const Set& other) const {
+		Set result;
+		for (std::size_t i = 0; i < size_; ++i) {
+			if (other.contains(data_[i])) { result.insert(data_[i]); }
+		}
+		return result;
+	}
+
+	//13
+	friend std::ostream& operator<<(std::ostream& os, const Set& s) {
+		os << "{ ";
+		for (std::size_t i = 0; i < s.size_; ++i) {
+			os << s.data_[i];
+			if (i + 1 < s.size_) os << ", ";
+		}
+		os << " }";
+		return os;
+	}
+	
 };
 
 #endif // !SET_H
