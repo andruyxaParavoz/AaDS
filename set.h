@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <random>
+#include <utility>
+#include <string>
 
 template <typename T>
 class Set {
@@ -30,15 +33,15 @@ private:
 	}
 
 public:
-	//1
+	//1 def
 	Set() : data_(nullptr), size_(0) {}
 
-	//2
+	//2 arr
 	Set(const T* arr, std::size_t n) : data_(nullptr), size_(0) {
 		for (std::size_t i = 0; i < n; ++i) { add(arr[i]); }
 	}
 
-	//3
+	//3 cpy
 	Set(const Set& other) : data_(nullptr), size_(0) {
 		if (other.size_ > 0) {
 			data_ = new T[other.size_];
@@ -47,7 +50,24 @@ public:
 		size_ = other.size_;
 	}
 
-	//4
+	//4 rndm
+	Set(std::size_t count, T min_val, T max_val) : data_(nullptr), size_(0) {
+		if constexpr (!std::is_arithmetic_v<T>) { throw std::invalid_argument("Random generation only works for numeric types."); }
+
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		if constexpr (std::is_integral_v<T>) {
+			std::uniform_int_distribution<T> dist(min_val, max_val);
+			for (std::size_t i = 0; i < count; ++i) { insert(dist(gen)); }
+		}
+		else {
+			std::uniform_real_distribution<T> dist(min_val, max_val);
+			for (std::size_t i = 0; i < count; ++i) { insert(dist(gen)); }
+		}
+	}
+
+	
+	//5 dstr
 	~Set() { delete[] data_; }
 
 
@@ -75,7 +95,7 @@ public:
 	void insert(const T& value) {
 		if (contains_internal(value)) return;
 		T* new_data = new T[size_ + 1];
-		for (std::size_t i = 0; i < size_; ++i) { new_data[i] = data[i]; }
+		for (std::size_t i = 0; i < size_; ++i) { new_data[i] = data_[i]; }
 		new_data[size_] = value;
 		delete[] data_;
 		data_ = new_data;
@@ -88,7 +108,7 @@ public:
 		T* new_data = new T[size_ - 1];
 		std::size_t idx = 0;
 		for (std::size_t i = 0; i < size_; ++i) {
-			if (!is_equal(data_[i], value)) { new_data[idx++] = data[i]; }
+			if (!is_equal(data_[i], value)) { new_data[idx++] = data_[i]; }
 		}
 		delete[] data_;
 		data_ = new_data;
@@ -132,7 +152,7 @@ public:
 	//11
 	bool operator==(const Set& other) const {
 		if (size_ != other.size_) return false;
-		for (std : ; size_t i = 0; i < size_; ++i) { if (!other.contains(data_[i])) return false; }
+		for (std::size_t i = 0; i < size_; ++i) { if (!other.contains(data_[i])) return false; }
 		return true;
 	}
 
