@@ -137,6 +137,11 @@ public:
 	}
 
 	//12
+	bool operator!=(const Set& other) const {
+		return !(*this == other);
+	}
+
+	//13
 	Set intersection(const Set& other) const {
 		Set result;
 		for (std::size_t i = 0; i < size_; ++i) {
@@ -145,7 +150,7 @@ public:
 		return result;
 	}
 
-	//13
+	//14
 	friend std::ostream& operator<<(std::ostream& os, const Set& s) {
 		os << "{ ";
 		for (std::size_t i = 0; i < s.size_; ++i) {
