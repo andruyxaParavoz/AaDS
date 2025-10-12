@@ -15,9 +15,13 @@ private:
 	static constexpr double EPSILON = 1e-6;
 
 	//1
-	bool is_equal(const T& a, const T& b) const {
+	static bool is_equal(const T& a, const T& b) {
 		if constexpr (std::is_floating_point_v<T>) {
-			return std::abs(a - b) < EPSILON;
+			return std::fabs(a - b) < EPSILON;
+		}
+		else if constexpr (std::is_same_v<T, std::pair<int, double>>) {
+			return a.first == b.first &&
+				std::fabs(a.second - b.second) < EPSILON;
 		}
 		else {
 			return a == b;
@@ -27,7 +31,7 @@ private:
 	//2
 	bool contains_internal(const T& value) const {
 		for (std::size_t i = 0; i < size_; ++i) {
-			if (is_equal(data_[i]), value) { return true; }
+			if (is_equal(data_[i], value)) { return true; }
 		}
 		return false;
 	}
@@ -38,7 +42,7 @@ public:
 
 	//2 arr
 	Set(const T* arr, std::size_t n) : data_(nullptr), size_(0) {
-		for (std::size_t i = 0; i < n; ++i) { add(arr[i]); }
+		for (std::size_t i = 0; i < n; ++i) { insert(arr[i]); }
 	}
 
 	//3 cpy
@@ -171,15 +175,24 @@ public:
 	}
 
 	//14
-	friend std::ostream& operator<<(std::ostream& os, const Set& s) {
+	friend std::ostream& operator<<(std::ostream& os, const Set<T>& s) {
 		os << "{ ";
 		for (std::size_t i = 0; i < s.size_; ++i) {
-			os << s.data_[i];
-			if (i + 1 < s.size_) os << ", ";
+			if constexpr (std::is_same_v<T, std::pair<int, double>>) {
+				os << "(" << s.data_[i].first << ", " << s.data_[i].second << ")";
+			}
+			else {
+				os << s.data_[i];
+			}
+
+			if (i + 1 < s.size_) {
+				os << ", ";
+			}
 		}
 		os << " }";
 		return os;
 	}
+
 	
 };
 
