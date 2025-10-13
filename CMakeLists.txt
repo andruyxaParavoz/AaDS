@@ -7,7 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${PROJECT_NAME}
   "set.h"
+  "io_utils.h"
+  "io_utils.cpp"
   "main.cpp"
+  
+
 )
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang" OR

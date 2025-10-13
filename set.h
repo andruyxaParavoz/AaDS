@@ -1,4 +1,4 @@
-#ifndef SET_H
+﻿#ifndef SET_H
 #define SET_H
 
 #include <iostream>
@@ -68,15 +68,15 @@ public:
 		std::mt19937 gen(rd());
 		if constexpr (std::is_integral_v<T>) {
 			std::uniform_int_distribution<T> dist(min_val, max_val);
-			for (std::size_t i = 0; i < count; ++i) { insert(dist(gen)); }
+			while (size_ < count) insert(dist(gen));
 		}
 		else {
 			std::uniform_real_distribution<T> dist(min_val, max_val);
-			for (std::size_t i = 0; i < count; ++i) { insert(dist(gen)); }
+			while (size_ < count) insert(dist(gen));
 		}
 	}
 
-	//5
+	//5 init
 	Set(std::initializer_list<T> list) : data_(nullptr), size_(0) {
 		for (const auto& val : list) {
 			insert(val);
@@ -92,10 +92,9 @@ public:
 	//1
 	Set& operator=(const Set& other) {
 		if (this != &other) {
-			delete[] data_;
-			size_ = other.size_;
-			data_ = new T[size_];
-			for (std::size_t i = 0; i < size_; ++i) { data_[i] = other.data_[i]; }
+			Set temp(other);
+			std::swap(data_, temp.data_);
+			std::swap(size_, temp.size_);
 		}
 		return *this;
 	}
@@ -144,14 +143,14 @@ public:
 	//7
 	Set operator+(const Set& other) const {
 		Set result = *this;
-		for (std::size_t i = 0; i < size_; ++i) { result.insert(other.data_[i]); }
+		for (std::size_t i = 0; i < other.size_; ++i) { result.insert(other.data_[i]); }
 		return result;
 	}
 
 	//8
 	Set operator-(const Set& other) const {
 		Set result = *this;
-		for (std::size_t i = 0; i < size_; ++i) { result.remove(other.data_[i]); }
+		for (std::size_t i = 0; i < other.size_; ++i) { result.remove(other.data_[i]); }
 		return result;
 	}
 
@@ -207,12 +206,14 @@ public:
 		return os;
 	}
 
-	template <typename T>
-	Set<T> exclusive_elements(const Set<T>& a, const Set<T>& b) {
-		Set<T> union_set = a + b;
-		Set<T> inter = a.intersection(b);
-		return union_set - inter;
-	}
+	
 	
 };
+
+template <typename T>
+Set<T> exclusive_elements(const Set<T>& a, const Set<T>& b) {
+	Set<T> union_set = a + b;
+	Set<T> inter = a.intersection(b);
+	return union_set - inter;
+}
 #endif // !SET_H
