@@ -61,9 +61,9 @@ int main() {
         std::cout << "P2: " << p2 << '\n';
         std::cout << "P1 ∩ P2: " << p1.intersection(p2) << '\n';
 
-        std::cout << "\n=== Main task: Elements unique to one of two arrays ===\n";
-        Set<int> unique = (a - b) + (b - a);
-        std::cout << "Unique elements: " << unique << '\n';
+        std::cout << "\n=== Main task: Symmetric difference ===\n";
+        Set<int> unique = a.symmetryc_difference(b);
+        std::cout << "A △ B: " << unique << '\n';
 
     }
     catch (const std::exception& e) {
