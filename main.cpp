@@ -27,6 +27,7 @@ int main() {
         std::cout << "A after removing 100: " << a << '\n';
 
         std::cout << "Does A contain 5? " << (a.contains(5) ? "Yes" : "No") << '\n';
+        std::cout << "Does B contain 5? " << (b.contains(5) ? "Yes" : "No") << '\n';
 
         std::cout << "A == B ? " << ((a == b) ? "Yes" : "No") << '\n';
         std::cout << "A != B ? " << ((a != b) ? "Yes" : "No") << '\n';
@@ -35,7 +36,7 @@ int main() {
         std::cout << "B[3] = " << b[3] << '\n';
 
         try {
-            std::cout << "Trying to access out-of-range index...\n";
+            std::cout << "\nTrying to access out-of-range index...\n";
             std::cout << a[50];
         }
         catch (const std::out_of_range& e) {
