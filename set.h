@@ -58,6 +58,12 @@ public:
 	Set(std::size_t count, T min_val, T max_val) : data_(nullptr), size_(0) {
 		if constexpr (!std::is_arithmetic_v<T>) { throw std::invalid_argument("Random generation only works for numeric types."); }
 
+		if constexpr (std::is_integral_v<T>) {
+			if (max_val - min_val + 1 < static_cast<T>(count)) {
+				throw std::invalid_argument("Range too small for unique values.");
+			}
+		}
+
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		if constexpr (std::is_integral_v<T>) {
@@ -70,8 +76,15 @@ public:
 		}
 	}
 
+	//5
+	Set(std::initializer_list<T> list) : data_(nullptr), size_(0) {
+		for (const auto& val : list) {
+			insert(val);
+		}
+	}
+
 	
-	//5 dstr
+	//6 dstr
 	~Set() { delete[] data_; }
 
 
@@ -97,13 +110,14 @@ public:
 
 	//3
 	void insert(const T& value) {
-		if (contains_internal(value)) return;
+		if (!contains_internal(value)){
 		T* new_data = new T[size_ + 1];
 		for (std::size_t i = 0; i < size_; ++i) { new_data[i] = data_[i]; }
 		new_data[size_] = value;
 		delete[] data_;
 		data_ = new_data;
 		++size_;
+		}
 	}
 
 	//4
@@ -193,7 +207,12 @@ public:
 		return os;
 	}
 
+	template <typename T>
+	Set<T> exclusive_elements(const Set<T>& a, const Set<T>& b) {
+		Set<T> union_set = a + b;
+		Set<T> inter = a.intersection(b);
+		return union_set - inter;
+	}
 	
 };
-
 #endif // !SET_H
