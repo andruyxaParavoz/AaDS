@@ -209,11 +209,19 @@ public:
 	//14
 	Set symmetryc_difference(const Set& other) const {
 		Set union_set = *this + other;
-		Set inter = this->intersection(other);
+		Set inter = intersection(other);
 		return union_set - inter;
 	}
 	
 	
 };
+
+template <typename T>
+Set<T> symmetryc_difference(const Set<T>& a, const Set<T>& b) {
+	Set<T> union_set = a + b;
+	Set<T> inter = a.intersection(b);
+	return union_set - inter;
+}
+
 
 #endif // !SET_H
