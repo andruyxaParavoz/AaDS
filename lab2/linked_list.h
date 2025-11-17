@@ -5,17 +5,18 @@
 #include <stdexcept>
 #include <random>
 
-struct Term {
-    double coefficient;
+struct Node {
+    int coefficient;
     int exponent;
-    Term* next;
+    Node* next;
 
-    Term(double coeff, int exp) : coefficient(coeff), exponent(exp), next(nullptr) {}
+    Node(int coeff, int exp) : coefficient(coeff), exponent(exp), next(nullptr) {}
 };
 
 class Polynomial {
 private:
-    Term* head;
+    Node* head;
+    Node* tail;
     size_t size;
 
     void clear() {
@@ -25,10 +26,12 @@ private:
     }
 
 public:
-    Polynomial() : head(nullptr), size(0) {}
+    //def
+    Polynomial() : head(nullptr), tail(nullptr), size(0) {}
 
-    Polynomial(const Polynomial& other) : head(nullptr), size(0) {
-        Term* current = other.head;
+    //cpy
+    Polynomial(const Polynomial& other) : head(nullptr), tail(nullptr), size(0) {
+        Node* current = other.head;
         if (current) {
             do {
                 push_tail(current->coefficient, current->exponent);
@@ -37,13 +40,14 @@ public:
         }
     }
 
-    Polynomial(size_t count, int max_exponent, unsigned int seed = 0) : head(nullptr), size(0) {
+    //rndm
+    Polynomial(size_t count, int max_exponent, unsigned int seed = 0) : head(nullptr), tail(nullptr), size(0) {
         std::mt19937 gen(seed == 0 ? std::random_device{}() : seed);
-        std::uniform_real_distribution<double> coeff_dist(-10.0, 10.0);
+        std::uniform_int_distribution<int> coeff_dist(-10, 10);
         std::uniform_int_distribution<int> exp_dist(0, max_exponent);
 
         for (size_t i = 0; i < count; ++i) {
-            double coeff = coeff_dist(gen);
+            int coeff = coeff_dist(gen);
             int exp = exp_dist(gen);
             if (coeff != 0) {
                 push_tail(coeff, exp);
@@ -52,14 +56,16 @@ public:
         sort_by_exponent();
     }
 
+    //dstr
     ~Polynomial() {
         clear();
     }
 
+    //1
     Polynomial& operator=(const Polynomial& other) {
         if (this != &other) {
             clear();
-            Term* current = other.head;
+            Node* current = other.head;
             if (current) {
                 do {
                     push_tail(current->coefficient, current->exponent);
@@ -70,30 +76,87 @@ public:
         return *this;
     }
 
+    //2
+    Node& operator[](size_t index) {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+
+        Node* current = head;
+        for (size_t i = 0; i < index; ++i) {
+            current = current->next;
+        }
+        return *current;
+    }
+
+    //3
+    const Node& operator[](size_t index) const {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+
+        Node* current = head;
+        for (size_t i = 0; i < index; ++i) {
+            current = current->next;
+        }
+        return *current;
+    }
+
+    //4
+    Polynomial operator+(const Polynomial& other) const {
+        Polynomial result = *this;
+
+        Node* current = other.head;
+        if (current) {
+            do {
+                result.add_node(current->coefficient, current->exponent);
+                current = current->next;
+            } while (current != other.head);
+        }
+
+        result.sort_by_exponent();
+        return result;
+    }
+
+    //1
     void push_tail(double coefficient, int exponent) {
         if (coefficient == 0) return;
 
-        Term* new_term = new Term(coefficient, exponent);
+        Node* current = head;
+        if (current) {
+            do {
+                if (current->exponent == exponent) {
+                    current->coefficient += coefficient;
+                    if (current->coefficient == 0) {
+                        delete_node(exponent);
+                    }
+                    return;
+                }
+                current = current->next;
+            } while (current != head);
+        }
 
+        Node* new_node = new Node(coefficient, exponent);
         if (!head) {
-            head = new_term;
+            head = new_node;
+            tail = new_node;
             head->next = head;
         }
         else {
-            Term* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            tail->next = new_term;
-            new_term->next = head;
+            tail->next = new_node;
+            new_node->next = head;
+            tail = new_node;
         }
         ++size;
     }
 
+
+
+    //2
     void push_tail(const Polynomial& other) {
         if (!other.head) return;
 
-        Term* current = other.head;
+        Node* current = other.head;
         do {
             push_tail(current->coefficient, current->exponent);
             current = current->next;
@@ -101,32 +164,45 @@ public:
         sort_by_exponent();
     }
 
-    void push_head(double coefficient, int exponent) {
+    //3
+    void push_head(int coefficient, int exponent) {
         if (coefficient == 0) return;
 
-        Term* new_term = new Term(coefficient, exponent);
+        Node* current = head;
+        if (current) {
+            do {
+                if (current->exponent == exponent) {
+                    current->coefficient += coefficient;
+                    if (current->coefficient == 0) {
+                        delete_node(exponent);
+                    }
+                    return;
+                }
+                current = current->next;
+            } while (current != head);
+        }
 
+        Node* new_node = new Node(coefficient, exponent);
         if (!head) {
-            head = new_term;
+            head = new_node;
             head->next = head;
         }
         else {
-            Term* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            new_term->next = head;
-            head = new_term;
+            Node* tail = head->next;
+            while (tail->next != head) tail = tail->next;
+            new_node->next = head;
+            head = new_node;
             tail->next = head;
         }
         ++size;
     }
 
+    //4
     void push_head(const Polynomial& other) {
         if (!other.head) return;
 
         Polynomial temp = other;
-        Term* current = temp.head;
+        Node* current = temp.head;
         do {
             push_head(current->coefficient, current->exponent);
             current = current->next;
@@ -134,6 +210,7 @@ public:
         sort_by_exponent();
     }
 
+    //5
     void pop_head() {
         if (!head) {
             throw std::runtime_error("Cannot pop from empty polynomial");
@@ -142,13 +219,10 @@ public:
         if (head->next == head) {
             delete head;
             head = nullptr;
+            tail = nullptr;
         }
         else {
-            Term* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            Term* temp = head;
+            Node* temp = head;
             head = head->next;
             tail->next = head;
             delete temp;
@@ -156,6 +230,8 @@ public:
         --size;
     }
 
+
+    //6
     void pop_tail() {
         if (!head) {
             throw std::runtime_error("Cannot pop from empty polynomial");
@@ -166,46 +242,23 @@ public:
             head = nullptr;
         }
         else {
-            Term* current = head;
+            Node* current = head;
             while (current->next->next != head) {
                 current = current->next;
             }
-            Term* temp = current->next;
+            Node* temp = current->next;
             current->next = head;
             delete temp;
         }
         --size;
     }
 
-    Term& operator[](size_t index) {
-        if (index >= size) {
-            throw std::out_of_range("Index out of range");
-        }
-
-        Term* current = head;
-        for (size_t i = 0; i < index; ++i) {
-            current = current->next;
-        }
-        return *current;
-    }
-
-    const Term& operator[](size_t index) const {
-        if (index >= size) {
-            throw std::out_of_range("Index out of range");
-        }
-
-        Term* current = head;
-        for (size_t i = 0; i < index; ++i) {
-            current = current->next;
-        }
-        return *current;
-    }
-
-    void delete_term(int exponent) {
+    //7
+    void delete_node(int exponent) {
         if (!head) return;
 
-        Term* current = head;
-        Term* prev = nullptr;
+        Node* current = head;
+        Node* prev = nullptr;
 
         do {
             if (current->exponent == exponent) {
@@ -215,7 +268,7 @@ public:
                     if (!head) break;
                 }
                 else {
-                    Term* temp = current;
+                    Node* temp = current;
                     prev->next = current->next;
                     current = current->next;
                     delete temp;
@@ -229,32 +282,35 @@ public:
         } while (current != head && head);
     }
 
+    //8
     bool is_empty() const {
         return size == 0;
     }
 
+    //9
     size_t get_size() const {
         return size;
     }
 
+    //10
     void display() const {
         if (is_empty()) {
             std::cout << "0";
             return;
         }
 
-        Term* current = head;
-        bool first_term = true;
+        Node* current = head;
+        bool first_node = true;
 
         do {
-            if (current->coefficient > 0 && !first_term) {
+            if (current->coefficient > 0 && !first_node) {
                 std::cout << " + ";
             }
             else if (current->coefficient < 0) {
                 std::cout << " - ";
             }
 
-            double abs_coeff = std::abs(current->coefficient);
+            int abs_coeff = std::abs(current->coefficient);
 
             if (current->exponent == 0) {
                 std::cout << abs_coeff;
@@ -276,28 +332,15 @@ public:
                 }
             }
 
-            first_term = false;
+            first_node = false;
             current = current->next;
         } while (current != head);
 
         std::cout << std::endl;
     }
 
-    Polynomial operator+(const Polynomial& other) const {
-        Polynomial result = *this;
-
-        Term* current = other.head;
-        if (current) {
-            do {
-                result.add_term(current->coefficient, current->exponent);
-                current = current->next;
-            } while (current != other.head);
-        }
-
-        return result;
-    }
-
-    void add_term(double coefficient, int exponent) {
+    //11
+    void add_node(int coefficient, int exponent) {
         if (coefficient == 0) return;
 
         if (!head) {
@@ -305,14 +348,14 @@ public:
             return;
         }
 
-        Term* current = head;
+        Node* current = head;
         bool found = false;
 
         do {
             if (current->exponent == exponent) {
-                double new_coeff = current->coefficient + coefficient;
+                int new_coeff = current->coefficient + coefficient;
                 if (new_coeff == 0) {
-                    delete_term(exponent);
+                    delete_node(exponent);
                 }
                 else {
                     current->coefficient = new_coeff;
@@ -328,17 +371,18 @@ public:
         }
     }
 
+    //12
     void sort_by_exponent() {
         if (!head || head->next == head) return;
 
         bool swapped;
         do {
             swapped = false;
-            Term* current = head;
-            Term* prev = nullptr;
+            Node* current = head;
+            Node* prev = nullptr;
 
             do {
-                Term* next = current->next;
+                Node* next = current->next;
                 if (next != head && current->exponent < next->exponent) {
                     if (current == head) {
                         head = next;

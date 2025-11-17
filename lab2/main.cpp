@@ -7,27 +7,27 @@ void display_menu() {
     std::cout << "2. Create second polynomial manually" << std::endl;
     std::cout << "3. Display polynomials" << std::endl;
     std::cout << "4. Add polynomials" << std::endl;
-    std::cout << "5. Add term to head" << std::endl;
-    std::cout << "6. Add term to tail" << std::endl;
-    std::cout << "7. Access term by index" << std::endl;
+    std::cout << "5. Add node to head" << std::endl;
+    std::cout << "6. Add node to tail" << std::endl;
+    std::cout << "7. Access node by index" << std::endl;
     std::cout << "0. Exit" << std::endl;
     std::cout << "Choose option: ";
 }
 
 void create_manual_polynomial(Polynomial& poly, const std::string& name) {
     poly = Polynomial();
-    int term_count;
+    int node_count;
 
-    std::cout << "Enter number of terms for " << name << ": ";
-    std::cin >> term_count;
+    std::cout << "Enter number of nodes for " << name << ": ";
+    std::cin >> node_count;
 
-    for (int i = 0; i < term_count; ++i) {
-        double coeff;
+    for (int i = 0; i < node_count; ++i) {
+        int coeff;
         int exp;
 
-        std::cout << "Term " << i + 1 << " - coefficient: ";
+        std::cout << "Node " << i + 1 << " - coefficient: ";
         std::cin >> coeff;
-        std::cout << "Term " << i + 1 << " - exponent: ";
+        std::cout << "Node " << i + 1 << " - exponent: ";
         std::cin >> exp;
 
         poly.push_tail(coeff, exp);
@@ -37,8 +37,8 @@ void create_manual_polynomial(Polynomial& poly, const std::string& name) {
     poly.display();
 }
 
-void add_term_to_head(Polynomial& poly, const std::string& name) {
-    double coeff;
+void add_node_to_head(Polynomial& poly, const std::string& name) {
+    int coeff;
     int exp;
 
     std::cout << "Enter coefficient for " << name << ": ";
@@ -52,8 +52,8 @@ void add_term_to_head(Polynomial& poly, const std::string& name) {
     poly.display();
 }
 
-void add_term_to_tail(Polynomial& poly, const std::string& name) {
-    double coeff;
+void add_node_to_tail(Polynomial& poly, const std::string& name) {
+    int coeff;
     int exp;
 
     std::cout << "Enter coefficient for " << name << ": ";
@@ -67,7 +67,7 @@ void add_term_to_tail(Polynomial& poly, const std::string& name) {
     poly.display();
 }
 
-void access_term_by_index(const Polynomial& poly, const std::string& name) {
+void access_node_by_index(const Polynomial& poly, const std::string& name) {
     if (poly.is_empty()) {
         std::cout << name << " is empty!" << std::endl;
         return;
@@ -78,15 +78,15 @@ void access_term_by_index(const Polynomial& poly, const std::string& name) {
     std::cin >> index;
 
     try {
-        const Term& term = poly[index];
-        std::cout << "Term at index " << index << " in " << name << ": ";
-        if (term.coefficient >= 0) {
-            std::cout << term.coefficient;
+        const Node& node = poly[index];
+        std::cout << "Node at index " << index << " in " << name << ": ";
+        if (node.coefficient >= 0) {
+            std::cout << node.coefficient;
         }
         else {
-            std::cout << "(" << term.coefficient << ")";
+            std::cout << "(" << node.coefficient << ")";
         }
-        std::cout << "x^" << term.exponent << std::endl;
+        std::cout << "x^" << node.exponent << std::endl;
     }
     catch (const std::out_of_range& e) {
         std::cout << "Error: " << e.what() << std::endl;
@@ -130,30 +130,30 @@ int main() {
 
         case 5: {
             int poly_choice;
-            std::cout << "Add term to head of which polynomial? (1/2): ";
+            std::cout << "Add node to head of which polynomial? (1/2): ";
             std::cin >> poly_choice;
-            if (poly_choice == 1) add_term_to_head(poly1, "first polynomial");
-            else if (poly_choice == 2) add_term_to_head(poly2, "second polynomial");
+            if (poly_choice == 1) add_node_to_head(poly1, "first polynomial");
+            else if (poly_choice == 2) add_node_to_head(poly2, "second polynomial");
             else std::cout << "Invalid choice!" << std::endl;
             break;
         }
 
         case 6: {
             int poly_choice;
-            std::cout << "Add term to tail of which polynomial? (1/2): ";
+            std::cout << "Add node to tail of which polynomial? (1/2): ";
             std::cin >> poly_choice;
-            if (poly_choice == 1) add_term_to_tail(poly1, "first polynomial");
-            else if (poly_choice == 2) add_term_to_tail(poly2, "second polynomial");
+            if (poly_choice == 1) add_node_to_tail(poly1, "first polynomial");
+            else if (poly_choice == 2) add_node_to_tail(poly2, "second polynomial");
             else std::cout << "Invalid choice!" << std::endl;
             break;
         }
 
         case 7: {
             int poly_choice;
-            std::cout << "Access term from which polynomial? (1/2): ";
+            std::cout << "Access node from which polynomial? (1/2): ";
             std::cin >> poly_choice;
-            if (poly_choice == 1) access_term_by_index(poly1, "first polynomial");
-            else if (poly_choice == 2) access_term_by_index(poly2, "second polynomial");
+            if (poly_choice == 1) access_node_by_index(poly1, "first polynomial");
+            else if (poly_choice == 2) access_node_by_index(poly2, "second polynomial");
             else std::cout << "Invalid choice!" << std::endl;
             break;
         }
