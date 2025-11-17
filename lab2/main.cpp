@@ -5,12 +5,14 @@ void display_menu() {
     std::cout << "\n=== Polynomial Calculator ===\n";
     std::cout << "1. Create first polynomial manually\n";
     std::cout << "2. Create second polynomial manually\n";
-    std::cout << "3. Display polynomials\n";
-    std::cout << "4. Add polynomials\n";
-    std::cout << "5. Add node to head\n";
-    std::cout << "6. Add node to tail\n";
-    std::cout << "7. Access node by index\n";
-    std::cout << "8. Evaluate polynomial at x\n";
+    std::cout << "3. Create first polynomial with random values\n";
+    std::cout << "4. Create second polynomial with random values\n";
+    std::cout << "5. Display polynomials\n";
+    std::cout << "6. Add polynomials\n";
+    std::cout << "7. Add node to head\n";
+    std::cout << "8. Add node to tail\n";
+    std::cout << "9. Access node by index\n";
+    std::cout << "10. Evaluate polynomial at x\n";
     std::cout << "0. Exit\n";
     std::cout << "Choose option: ";
 }
@@ -32,6 +34,22 @@ void create_manual_polynomial(Polynomial& poly, const std::string& name) {
     }
 
     poly.sort_by_exponent();
+    std::cout << name << " created: ";
+    poly.display();
+}
+
+void create_random_polynomial(Polynomial& poly, const std::string& name) {
+    size_t count;
+    int max_exp;
+    unsigned int seed;
+
+    std::cout << "Enter number of random nodes for " << name << ": ";
+    std::cin >> count;
+    std::cout << "Enter maximum exponent: ";
+    std::cin >> max_exp;
+    std::cout << "Enter random seed: ";
+    std::cin >> seed;
+    poly = Polynomial(count, max_exp, seed);
     std::cout << name << " created: ";
     poly.display();
 }
@@ -124,12 +142,18 @@ int main() {
             create_manual_polynomial(poly2, "second polynomial");
             break;
         case 3:
+            create_random_polynomial(poly1, "first polynomial");
+            break;
+        case 4:
+            create_random_polynomial(poly2, "second polynomial");
+            break;
+        case 5:
             std::cout << "First polynomial: ";
             poly1.display();
             std::cout << "Second polynomial: ";
             poly2.display();
             break;
-        case 4:
+        case 6:
             result = poly1 + poly2;
             std::cout << "First polynomial: ";
             poly1.display();
@@ -138,7 +162,7 @@ int main() {
             std::cout << "Sum: ";
             result.display();
             break;
-        case 5: {
+        case 7: {
             int poly_choice;
             std::cout << "Add node to head of which polynomial? (1/2): ";
             std::cin >> poly_choice;
@@ -147,7 +171,7 @@ int main() {
             else std::cout << "Invalid choice!\n";
             break;
         }
-        case 6: {
+        case 8: {
             int poly_choice;
             std::cout << "Add node to tail of which polynomial? (1/2): ";
             std::cin >> poly_choice;
@@ -156,7 +180,7 @@ int main() {
             else std::cout << "Invalid choice!\n";
             break;
         }
-        case 7: {
+        case 9: {
             int poly_choice;
             std::cout << "Access node from which polynomial? (1/2): ";
             std::cin >> poly_choice;
@@ -165,7 +189,7 @@ int main() {
             else std::cout << "Invalid choice!\n";
             break;
         }
-        case 8: {
+        case 10: {
             int poly_choice;
             std::cout << "Evaluate which polynomial? (1/2): ";
             std::cin >> poly_choice;
