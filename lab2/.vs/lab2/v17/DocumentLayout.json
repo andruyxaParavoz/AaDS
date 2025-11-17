@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:linked_list.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:io_utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:io_utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -25,7 +29,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +38,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "io_utils.cpp",
+              "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp",
+              "RelativeDocumentMoniker": "io_utils.cpp",
+              "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp",
+              "RelativeToolTip": "io_utils.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-17T17:48:08.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "io_utils.h",
               "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.h",
               "RelativeDocumentMoniker": "io_utils.h",
@@ -51,10 +67,9 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAAAKoAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAGIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-17T15:02:32.406Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-17T15:02:32.406Z"
             },
             {
               "$type": "Document",
@@ -64,14 +79,13 @@
               "RelativeDocumentMoniker": "linked_list.h",
               "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\linked_list.h",
               "RelativeToolTip": "linked_list.h",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAlwIgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACYBAAAAAAAAAAAAADwBAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-17T13:48:02.897Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-17T13:48:02.897Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",
               "DocumentMoniker": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",
               "ToolTip": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",

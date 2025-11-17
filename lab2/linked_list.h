@@ -119,38 +119,32 @@ public:
     }
 
     //1
-    void push_tail(double coefficient, int exponent) {
+    void push_tail(int coefficient, int exponent) {
         if (coefficient == 0) return;
-
         Node* current = head;
         if (current) {
             do {
                 if (current->exponent == exponent) {
                     current->coefficient += coefficient;
-                    if (current->coefficient == 0) {
-                        delete_node(exponent);
-                    }
+                    if (current->coefficient == 0) delete_node(exponent);
                     return;
                 }
                 current = current->next;
             } while (current != head);
         }
 
-        Node* new_node = new Node(coefficient, exponent);
+        Node* node = new Node(coefficient, exponent);
         if (!head) {
-            head = new_node;
-            tail = new_node;
-            head->next = head;
+            head = tail = node;
+            node->next = node;
         }
         else {
-            tail->next = new_node;
-            new_node->next = head;
-            tail = new_node;
+            tail->next = node;
+            node->next = head;
+            tail = node;
         }
         ++size;
     }
-
-
 
     //2
     void push_tail(const Polynomial& other) {
@@ -167,31 +161,26 @@ public:
     //3
     void push_head(int coefficient, int exponent) {
         if (coefficient == 0) return;
-
         Node* current = head;
         if (current) {
             do {
                 if (current->exponent == exponent) {
                     current->coefficient += coefficient;
-                    if (current->coefficient == 0) {
-                        delete_node(exponent);
-                    }
+                    if (current->coefficient == 0) delete_node(exponent);
                     return;
                 }
                 current = current->next;
             } while (current != head);
         }
 
-        Node* new_node = new Node(coefficient, exponent);
+        Node* node = new Node(coefficient, exponent);
         if (!head) {
-            head = new_node;
-            head->next = head;
+            head = tail = node;
+            node->next = node;
         }
         else {
-            Node* tail = head->next;
-            while (tail->next != head) tail = tail->next;
-            new_node->next = head;
-            head = new_node;
+            node->next = head;
+            head = node;
             tail->next = head;
         }
         ++size;
@@ -207,25 +196,21 @@ public:
             push_head(current->coefficient, current->exponent);
             current = current->next;
         } while (current != temp.head);
-        sort_by_exponent();
+        sort_by_exponent(); 
     }
 
     //5
     void pop_head() {
-        if (!head) {
-            throw std::runtime_error("Cannot pop from empty polynomial");
-        }
-
-        if (head->next == head) {
+        if (!head) throw std::runtime_error("Cannot pop from empty polynomial");
+        if (head == tail) {
             delete head;
-            head = nullptr;
-            tail = nullptr;
+            head = tail = nullptr;
         }
         else {
-            Node* temp = head;
+            Node* tmp = head;
             head = head->next;
             tail->next = head;
-            delete temp;
+            delete tmp;
         }
         --size;
     }
@@ -233,22 +218,17 @@ public:
 
     //6
     void pop_tail() {
-        if (!head) {
-            throw std::runtime_error("Cannot pop from empty polynomial");
-        }
-
-        if (head->next == head) {
+        if (!head) throw std::runtime_error("Cannot pop from empty polynomial");
+        if (head == tail) {
             delete head;
-            head = nullptr;
+            head = tail = nullptr;
         }
         else {
             Node* current = head;
-            while (current->next->next != head) {
-                current = current->next;
-            }
-            Node* temp = current->next;
+            while (current->next != tail) current = current->next;
             current->next = head;
-            delete temp;
+            delete tail;
+            tail = current;
         }
         --size;
     }
@@ -342,65 +322,53 @@ public:
     //11
     void add_node(int coefficient, int exponent) {
         if (coefficient == 0) return;
-
-        if (!head) {
-            push_tail(coefficient, exponent);
-            return;
-        }
-
         Node* current = head;
-        bool found = false;
-
-        do {
-            if (current->exponent == exponent) {
-                int new_coeff = current->coefficient + coefficient;
-                if (new_coeff == 0) {
-                    delete_node(exponent);
+        if (current) {
+            do {
+                if (current->exponent == exponent) {
+                    current->coefficient += coefficient;
+                    if (current->coefficient == 0) delete_node(exponent);
+                    return;
                 }
-                else {
-                    current->coefficient = new_coeff;
-                }
-                found = true;
-                break;
-            }
-            current = current->next;
-        } while (current != head);
-
-        if (!found) {
-            push_tail(coefficient, exponent);
+                current = current->next;
+            } while (current != head);
         }
+        push_tail(coefficient, exponent);
     }
+
 
     //12
     void sort_by_exponent() {
-        if (!head || head->next == head) return;
+        if (!head || head == tail) return;
 
         bool swapped;
         do {
             swapped = false;
+            Node* prev = tail;
             Node* current = head;
-            Node* prev = nullptr;
 
             do {
                 Node* next = current->next;
-                if (next != head && current->exponent < next->exponent) {
-                    if (current == head) {
-                        head = next;
-                    }
 
-                    if (prev) {
-                        prev->next = next;
-                    }
+                if (next != head && current->exponent < next->exponent) {
+                    if (current == head) head = next;
+                    if (next == tail) tail = current;
+
+                    prev->next = next;
                     current->next = next->next;
                     next->next = current;
 
                     swapped = true;
+                    prev = next;
                 }
-                prev = current;
-                current = next;
+                else {
+                    prev = current;
+                    current = current->next;
+                }
             } while (current != head);
         } while (swapped);
     }
+
 };
 
 #endif
