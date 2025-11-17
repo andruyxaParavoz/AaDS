@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\",
+  "WorkspaceRootPath": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\linked_list.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\linked_list.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:linked_list.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:io_utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:io_utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
@@ -39,22 +39,21 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "io_utils.cpp",
-              "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp",
+              "DocumentMoniker": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.cpp",
               "RelativeDocumentMoniker": "io_utils.cpp",
-              "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.cpp",
+              "ToolTip": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.cpp",
               "RelativeToolTip": "io_utils.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-17T17:48:08.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-17T17:48:08.765Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "io_utils.h",
-              "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.h",
+              "DocumentMoniker": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.h",
               "RelativeDocumentMoniker": "io_utils.h",
-              "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\io_utils.h",
+              "ToolTip": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\io_utils.h",
               "RelativeToolTip": "io_utils.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -64,11 +63,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\main.cpp",
+              "ToolTip": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAAAGIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-17T15:02:32.406Z",
               "EditorCaption": ""
@@ -77,11 +76,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "linked_list.h",
-              "DocumentMoniker": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\linked_list.h",
+              "DocumentMoniker": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\linked_list.h",
               "RelativeDocumentMoniker": "linked_list.h",
-              "ToolTip": "C:\\Users\\OrangeFruit\\Desktop\\AaDS\\lab2\\linked_list.h",
+              "ToolTip": "C:\\Users\\Vlados\\Desktop\\AaDS\\lab2\\linked_list.h",
               "RelativeToolTip": "linked_list.h",
-              "ViewState": "AgIAACYBAAAAAAAAAAAAADwBAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-17T13:48:02.897Z",
               "EditorCaption": ""

@@ -5,6 +5,10 @@
 #include <stdexcept>
 #include <random>
 
+struct Node;
+class Polynomial;
+void add_node(Polynomial& poly, int coefficient, int exponent);
+
 struct Node {
     int coefficient;
     int exponent;
@@ -104,12 +108,20 @@ public:
 
     //4
     Polynomial operator+(const Polynomial& other) const {
-        Polynomial result = *this;
+        Polynomial result;
 
-        Node* current = other.head;
+        Node* current = head;
         if (current) {
             do {
-                result.add_node(current->coefficient, current->exponent);
+                add_node(result, current->coefficient, current->exponent);
+                current = current->next;
+            } while (current != head);
+        }
+
+        current = other.head;
+        if (current) {
+            do {
+                add_node(result, current->coefficient, current->exponent);
                 current = current->next;
             } while (current != other.head);
         }
@@ -273,6 +285,12 @@ public:
     }
 
     //10
+    Node* get_head() { return head; }
+    
+    //11
+    Node* get_tail() { return tail; }
+
+    //12
     void display() const {
         if (is_empty()) {
             std::cout << "0";
@@ -319,25 +337,7 @@ public:
         std::cout << std::endl;
     }
 
-    //11
-    void add_node(int coefficient, int exponent) {
-        if (coefficient == 0) return;
-        Node* current = head;
-        if (current) {
-            do {
-                if (current->exponent == exponent) {
-                    current->coefficient += coefficient;
-                    if (current->coefficient == 0) delete_node(exponent);
-                    return;
-                }
-                current = current->next;
-            } while (current != head);
-        }
-        push_tail(coefficient, exponent);
-    }
-
-
-    //12
+    //13
     void sort_by_exponent() {
         if (!head || head == tail) return;
 

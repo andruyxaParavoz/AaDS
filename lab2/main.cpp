@@ -1,5 +1,4 @@
 #include "linked_list.h"
-#include <limits>
 #include <cmath>
 
 void display_menu() {
@@ -29,9 +28,10 @@ void create_manual_polynomial(Polynomial& poly, const std::string& name) {
         std::cout << "Node " << i + 1 << " - exponent: ";
         std::cin >> exp;
 
-        poly.add_node(coeff, exp);
+        add_node(poly, coeff, exp);
     }
 
+    poly.sort_by_exponent();
     std::cout << name << " created: ";
     poly.display();
 }
@@ -42,7 +42,7 @@ void add_node_to_head(Polynomial& poly, const std::string& name) {
     std::cin >> coeff;
     std::cout << "Enter exponent for " << name << ": ";
     std::cin >> exp;
-    poly.add_node(coeff, exp);
+    add_node(poly, coeff, exp);
     poly.sort_by_exponent();
     std::cout << "Updated " << name << ": ";
     poly.display();
@@ -54,7 +54,7 @@ void add_node_to_tail(Polynomial& poly, const std::string& name) {
     std::cin >> coeff;
     std::cout << "Enter exponent for " << name << ": ";
     std::cin >> exp;
-    poly.add_node(coeff, exp);
+    add_node(poly, coeff, exp);
     poly.sort_by_exponent();
     std::cout << "Updated " << name << ": ";
     poly.display();
@@ -78,6 +78,25 @@ void access_node_by_index(const Polynomial& poly, const std::string& name) {
     catch (const std::out_of_range& e) {
         std::cout << "Error: " << e.what() << "\n";
     }
+}
+
+void add_node(Polynomial& poly, int coefficient, int exponent) {
+    if (coefficient == 0) return;
+
+    Node* current = poly.get_head();
+    if (current) {
+        do {
+            if (current->exponent == exponent) {
+                current->coefficient += coefficient;
+                if (current->coefficient == 0) {
+                    poly.delete_node(exponent);
+                }
+                return;
+            }
+            current = current->next;
+        } while (current != poly.get_head());
+    }
+    poly.push_tail(coefficient, exponent);
 }
 
 double evaluate_polynomial(const Polynomial& poly, double x) {
